@@ -1,4 +1,4 @@
-import React,{Component} from 'React';
+import React, {Component} from 'React';
 
 import {
     StyleSheet,
@@ -9,44 +9,58 @@ import {
     Image,
     Platform,
     ScrollView
-}from 'react-native';
+} from 'react-native';
 
 var Dimensions = require('Dimensions');
-var {width,height} = Dimensions.get('window');
+var {width, height} = Dimensions.get('window');
 var HomeDetail = require('./XMGHomeDetail');
 var TopView = require('./XMGTopView');
 var MiddleView = require('./XMGHomeMiddleView');
 var BottomView = require('./XMGMiddleBottomView');
 var Home = React.createClass({
 
-    render(){
-        return(
+    render() {
+        return (
             <View style={styles.container}>
                 {/**首页导航条 */}
                 {this.renderNavBar()}
                 {/**首页主要内容 */}
                 <ScrollView>
-                    <TopView />
-                    <MiddleView />
-                    <BottomView />
+                    <TopView/>
+                    <MiddleView/>
+                    <BottomView/>
                 </ScrollView>
             </View>
         );
     },
-    renderNavBar(){
-        return(
-            // 三块 左 中 右
-            <View style = {styles.navStyle}>
-                <Text style={{color:'white',marginTop:12}}>上海</Text>
-                <TextInput
-                    placeholder = "输入商家、品类、商圈"
-                    style = {styles.topInput}   />
-                <View style={{flexDirection:'row',height:64,alignItems:'center',marginTop:7,marginRight:5}}>
-                    <Image source={{uri:'icon_homepage_message'}} style={styles.navRightImg}    />
-                    <Image source={{uri:'icon_homepage_scan'}}  style={styles.navRightImg}    />
-                </View>
-
-            </View>
+    renderNavBar() {
+        return (
+        // 三块 左 中 右 < View style = {
+            styles.navStyle
+        } > <Text style={{
+            color: 'white',
+            marginTop: 12
+        }}>上海</Text> < TextInput placeholder = "输入商家、品类、商圈" style = {
+            styles.topInput
+        } /> <View
+            style={{
+            flexDirection: 'row',
+            height: 64,
+            alignItems: 'center',
+            marginTop: 7,
+            marginRight: 5
+        }}>
+            <Image
+                source={{
+                uri: 'icon_homepage_message'
+            }}
+                style={styles.navRightImg}/>
+            <Image
+                source={{
+                uri: 'icon_homepage_scan'
+            }}
+                style={styles.navRightImg}/>
+        </View> < /View>
         );
     },
 
@@ -95,4 +109,3 @@ const styles = StyleSheet.create({
 });
 
 module.exports = Home;
-
