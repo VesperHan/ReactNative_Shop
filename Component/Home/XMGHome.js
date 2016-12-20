@@ -15,6 +15,8 @@ var Dimensions = require('Dimensions');
 var {width,height} = Dimensions.get('window');
 var HomeDetail = require('./XMGHomeDetail');
 var TopView = require('./XMGTopView');
+var MiddleView = require('./XMGHomeMiddleView');
+var BottomView = require('./XMGMiddleBottomView');
 var Home = React.createClass({
 
     render(){
@@ -25,6 +27,8 @@ var Home = React.createClass({
                 {/**首页主要内容 */}
                 <ScrollView>
                     <TopView />
+                    <MiddleView />
+                    <BottomView />
                 </ScrollView>
             </View>
         );
@@ -47,7 +51,6 @@ var Home = React.createClass({
     },
 
     pushToDetail(){
-        console.log('aaaa');
         this.props.navigator.push(
             {
                 component:HomeDetail,//要跳转的板块
