@@ -1,16 +1,22 @@
-import React, {Component} from 'React';
+import React,{Component} from 'React';
 
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    TouchableOpacity
+}from 'react-native';
 
 var HomeDetail = React.createClass({
 
-    getDefaultProps() {
-        return {}
+    getDefaultProps(){
+        return{
+        }
     },
-    render() {
-        return (
+    render(){
+        return(
             <View style={styles.container}>
-                <TouchableOpacity onPress={() => this.popToHome()}>
+                <TouchableOpacity onPress={()=>this.popToHome()}>
                     <Text>
                         {this.props.title}
                     </Text>
@@ -19,22 +25,21 @@ var HomeDetail = React.createClass({
         );
     },
 
-    popToHome() {
+    popToHome(){
         console.log(title)
-        this
-            .props
-            .navigator
-            .pop();
+        this.props.navigator.pop();
     }
 });
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'red'
-    }
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+  },    
+
 });
 
 module.exports = HomeDetail;
+
