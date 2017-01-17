@@ -11,14 +11,15 @@ var HomeDetail = React.createClass({
 
     getDefaultProps(){
         return{
+            title:' ',
         }
     },
     render(){
         return(
             <View style={styles.container}>
                 <TouchableOpacity onPress={()=>this.popToHome()}>
-                    <Text>
-                        {this.props.title}
+                    <Text style={styles.welcome}>
+                        测试跳转
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -26,7 +27,6 @@ var HomeDetail = React.createClass({
     },
 
     popToHome(){
-        console.log(title)
         this.props.navigator.pop();
     }
 });
@@ -38,7 +38,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'red',
   },    
-
+  welcome:{
+      fontSize:20,
+      textAlign:'center',
+      margin:10,
+  }
 });
 
 module.exports = HomeDetail;

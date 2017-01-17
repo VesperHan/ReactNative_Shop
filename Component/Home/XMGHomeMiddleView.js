@@ -5,7 +5,7 @@ import {
     View,
     Text,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
 }from 'react-native';
 
 var TopMiddleData = require('../LocalData/HomeTopMiddleLeft.json');

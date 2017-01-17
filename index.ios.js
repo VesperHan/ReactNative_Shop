@@ -15,8 +15,6 @@ import {
 // 导入外部组件类
 var Main = require('./Component/Main/XMGMain');
 
-
-
 class XMGBuy extends Component {
   render() {
     return (

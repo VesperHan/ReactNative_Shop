@@ -8,7 +8,8 @@ import {
     TextInput,
     Image,
     Platform,
-    ScrollView
+    ScrollView,
+    AlertIOS
 }from 'react-native';
 
 var Dimensions = require('Dimensions');
@@ -17,6 +18,8 @@ var HomeDetail = require('./XMGHomeDetail');
 var TopView = require('./XMGTopView');
 var MiddleView = require('./XMGHomeMiddleView');
 var BottomView = require('./XMGMiddleBottomView');
+var ShopCenter = require('./XMGShopCenter');
+var ShopDetail = require('./XMGShopCenterDetail');
 var Home = React.createClass({
 
     render(){
@@ -28,7 +31,13 @@ var Home = React.createClass({
                 <ScrollView>
                     <TopView />
                     <MiddleView />
-                    <BottomView />
+                    <BottomView 
+                        popTopHome={(data)=>{this.pushToDetail(data)}}
+                    />
+                    {/*购物中心*/}
+                    <ShopCenter 
+                        popToHomeView={(url)=>this.pushToShopCenterDetail(url)}
+                    />
                 </ScrollView>
             </View>
         );
@@ -45,20 +54,32 @@ var Home = React.createClass({
                     <Image source={{uri:'icon_homepage_message'}} style={styles.navRightImg}    />
                     <Image source={{uri:'icon_homepage_scan'}}  style={styles.navRightImg}    />
                 </View>
-
             </View>
         );
     },
 
-    pushToDetail(){
+    pushToDetail(data){
+        alert(data);
         this.props.navigator.push(
             {
                 component:HomeDetail,//要跳转的板块
                 title:'详情页' //参数
             }
         );
-    }
-    
+    },
+
+    pushToShopCenterDetail(url){
+        this.props.navigator.push(
+            {
+                component:ShopDetail,
+                passProps:{'url':this.dealWithUrl(url)}
+            }
+        );
+    },
+    //处理url
+    dealWithUrl(url){
+        return url.replace('imeituan://www.meituan.com/web/?url=','');
+    },
 });
 
 const styles = StyleSheet.create({

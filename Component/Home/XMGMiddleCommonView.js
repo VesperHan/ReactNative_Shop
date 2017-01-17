@@ -18,11 +18,14 @@ var MiddleCommonView = React.createClass({
             subTitle:' ',
             rightIcon:' ',
             titleColor:' ',
+            tplurl:' ',//下级界面的URL路径
+            //回调函数
+            callBackClickCell:null
         }
     },
     render(){
         return(
-            <TouchableOpacity activeOpacity={0.6}>
+            <TouchableOpacity activeOpacity={0.6} onPress={()=>this.clickCell(this.props.tplurl)}>
                 <View style={styles.contaier}>
                     <View>
                         <Text style={{color:this.props.titleColor,fontSize:16}}>{this.props.title}</Text>
@@ -32,6 +35,10 @@ var MiddleCommonView = React.createClass({
                 </View>
             </TouchableOpacity>
         );
+    },
+    clickCell(data){
+        if(this.props.callBackClickCell == null) return;
+        this.props.callBackClickCell(data);
     }
 });
 
@@ -39,9 +46,10 @@ const styles = StyleSheet.create({
     contaier:{
         width:width * 0.5 - 1,
         flexDirection:'row',
-        height:59,
+        height:60,
         justifyContent:'space-around',
         borderBottomWidth:1,
+        marginRight:1,
         borderColor:'#e8e8e8',
         backgroundColor:'white',
         alignItems:'center',
