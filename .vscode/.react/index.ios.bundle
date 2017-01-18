@@ -87212,6 +87212,7 @@ var MiddleView=require(663 /* ./XMGHomeMiddleView */);
 var BottomView=require(666 /* ./XMGMiddleBottomView */);
 var ShopCenter=require(676 /* ./XMGShopCenter */);
 var ShopDetail=require(679 /* ./XMGShopCenterDetail */);
+var GuestYouLike=require(680 /* ./XMGGeustYouLike */);
 var Home=_React2.default.createClass({displayName:'Home',
 
 render:function render(){var _this=this;
@@ -87228,8 +87229,9 @@ popTopHome:function popTopHome(data){_this.pushToDetail(data);}}),
 
 
 _React2.default.createElement(ShopCenter,{
-popToHomeView:function popToHomeView(url){return _this.pushToShopCenterDetail(url);}}))));
+popToHomeView:function popToHomeView(url){return _this.pushToShopCenterDetail(url);}}),
 
+_React2.default.createElement(GuestYouLike,null))));
 
 
 
@@ -88249,28 +88251,231 @@ justifyContent:'center'}});
 
 module.exports=ShopDetail;
 }, "XMGBuy/Component/Home/XMGShopCenterDetail.js");
-__d(668 /* XMGBuy/Component/Shop/XMGShop.js */, function(global, require, module, exports) {var _React=require(103 /* React */);var _React2=babelHelpers.interopRequireDefault(_React);
+__d(680 /* XMGBuy/Component/Home/XMGGeustYouLike.js */, function(global, require, module, exports) {var _React=require(103 /* React */);var _React2=babelHelpers.interopRequireDefault(_React);
 
+var _reactNative=require(44 /* react-native */);var _Dimensions$get=
+
+
+
+
+
+
+
+
+
+_reactNative.Dimensions.get('window');var width=_Dimensions$get.width;var height=_Dimensions$get.height;
+var CommonCell=require(677 /* ./XMGBottomCommonCell */);
+var GuestYouLike=_React2.default.createClass({displayName:'GuestYouLike',
+getDefaultProps:function getDefaultProps(){
+return{
+api_url:'http://api.meituan.com/group/v2/recommend/homepage/city/20?userId=160495643&userid=160495643&__vhost=api.mobile.meituan.com&position=23.134643%2C113.373951&movieBundleVersion=100&utm_term=6.6&limit=40&wifi-mac=64%3A09%3A80%3A10%3A15%3A27&ci=20&__skcy=X6Jxu5SCaijU80yX5ioQuvCDKj4%3D&__skua=5657981d60b5e2d83e9c64b453063ada&__skts=1459731016.350255&wifi-name=Xiaomi_1526&client=iphone&uuid=5C7B6342814C7B496D836A69C872202B5DE8DB689A2D777DFC717E10FC0B4271&__skno=FEB757F5-6120-49EC-85B0-D1444A2C2E7B&utm_content=5C7B6342814C7B496D836A69C872202B5DE8DB689A2D777DFC717E10FC0B4271&utm_source=AppStore&utm_medium=iphone&version_name=6.6&wifi-cur=0&wifi-strength=&offset=0&utm_campaign=AgroupBgroupD100H0&__skck=3c0cf64e4b039997339ed8fec4cddf05&msid=0FA91DDF-BF5B-4DA2-B05D-FA2032F30C6C2016-04-04-08-38594'};
+
+},
+getInitialState:function getInitialState(){
+return{
+dataSource:new _reactNative.ListView.DataSource({rowHasChanged:function rowHasChanged(row1,row2){return row1!==row2;}})};
+
+},
+render:function render(){
+return(
+_React2.default.createElement(_reactNative.View,{style:styles.container},
+_React2.default.createElement(CommonCell,{
+leftIcon:'cnxh',
+leftTitle:'\u731C\u4F60\u559C\u6B22'}),
+
+_React2.default.createElement(_reactNative.ListView,{
+dataSource:this.state.dataSource,
+renderRow:this.renderRow})));
+
+
+
+
+},
+renderRow:function renderRow(rowData){
+return(
+_React2.default.createElement(_reactNative.TouchableOpacity,null,
+_React2.default.createElement(_reactNative.View,{style:styles.listViewStyle},
+_React2.default.createElement(_reactNative.Image,{source:{uri:this.dealWithImageUrl(rowData.imageUrl)},
+style:styles.imageStyle}),
+_React2.default.createElement(_reactNative.View,{style:styles.rightViewStyle},
+_React2.default.createElement(_reactNative.View,{style:styles.rightTopViewStyle},
+_React2.default.createElement(_reactNative.Text,null,rowData.title),
+_React2.default.createElement(_reactNative.Text,{style:{color:'gray'}},rowData.topRightInfo)),
+
+_React2.default.createElement(_reactNative.Text,{style:{color:'gray'}},rowData.subTitle),
+_React2.default.createElement(_reactNative.View,{style:styles.rightBottomViewStyle},
+_React2.default.createElement(_reactNative.Text,{style:{color:'orange',fontSize:16}},rowData.mainMessage+rowData.mainMessage2),
+_React2.default.createElement(_reactNative.Text,null,rowData.bottomRightInfo))))));
+
+
+
+
+
+},
+dealWithImageUrl:function dealWithImageUrl(url){
+if(url.search('w.h')==-1){
+return url;
+}else{
+return url.replace('w.h','120.90');
+}
+},
+
+componentDidMount:function componentDidMount(){
+this.loadDataFormNet();
+},
+loadDataFormNet:function loadDataFormNet(){var _this=this;
+fetch(this.props.api_url).
+
+then(function(response){return response.json();}).
+then(function(responseData){
+console.log(responseData.data);
+
+_this.setState({
+dataSource:_this.state.dataSource.cloneWithRows(responseData.data)});
+
+});
+}});
+
+
+var styles=_reactNative.StyleSheet.create({
+container:{
+marginTop:15,
+backgroundColor:'white'},
+
+imageStyle:{
+width:120,
+height:90},
+
+listViewStyle:{
+flexDirection:'row',
+padding:10,
+borderBottomWidth:0.5,
+borderBottomColor:'#e8e8e8'},
+
+rightViewStyle:{
+marginLeft:8,
+justifyContent:'center',
+width:width-145},
+
+rightTopViewStyle:{
+flexDirection:'row',
+justifyContent:'space-between',
+marginBottom:8},
+
+rightBottomViewStyle:{
+flexDirection:'row',
+justifyContent:'space-between',
+marginTop:12}});
+
+
+
+
+module.exports=GuestYouLike;
+}, "XMGBuy/Component/Home/XMGGeustYouLike.js");
+__d(668 /* XMGBuy/Component/Shop/XMGShop.js */, function(global, require, module, exports) {
+
+
+
+
+
+var _react=require(12 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(44 /* react-native */);
 
 
 
 
 
-var Shop=_React2.default.createClass({displayName:'Shop',
+
+
+
+
+
+var Shop=_react2.default.createClass({displayName:'Shop',
+
+getInitialState:function getInitialState(){
+return{
+detailUrl:'http://i.meituan.com/topic/mingdian?ci=1&f=iphone&msid=48E2B810-805D-4821-9CDD-D5C9E01BC98A2015-07-02-16-25124&token=p19ukJltGhla4y5Jryb1jgCdKjsAAAAAsgAAADHFD3UYGxaY2FlFPQXQj2wCyCrhhn7VVB-KpG_U3-clHlvsLM8JRrnZK35y8UU3DQ&userid=10086&utm_campaign=AgroupBgroupD100Fab_chunceshishuju__a__a___b1junglehomepagecatesort__b__leftflow___ab_gxhceshi__nostrategy__leftflow___ab_gxhceshi0202__b__a___ab_pindaochangsha__a__leftflow___ab_xinkeceshi__b__leftflow___ab_gxtest__gd__leftflow___ab_waimaiwending__a__a___ab_gxh_82__nostrategy__leftflow___i_group_5_2_deallist_poitype__d__d___ab_b_food_57_purepoilist_extinfo__a__a___ab_pindaoshenyang__a__leftflow___ab_pindaoquxincelue0630__b__b1___a20141120nanning__m1__leftflow___ab_i_group_5_3_poidetaildeallist__a__b___ab_waimaizhanshi__b__b1___ab_i_group_5_5_onsite__b__b___ab_i_group_5_6_searchkuang__a__leftflowGhomepage_bargainmiddle_30311731&utm_content=4B8C0B46F5B0527D55EA292904FD7E12E48FB7BEA8DF50BFE7828AF7F20BB08D&utm_medium=iphone&utm_source=AppStore&utm_term=5.7&uuid=4B8C0B46F5B0527D55EA292904FD7E12E48FB7BEA8DF50BFE7828AF7F20BB08D&version_name=5.7&lat=23.12005&lng=113.3076'};
+
+},
 
 render:function render(){
-return(
-_React2.default.createElement(_reactNative.View,null,
-_React2.default.createElement(_reactNative.Text,null,'Welcome to React Shop!')));
 
+
+
+return(
+_react2.default.createElement(_reactNative.View,{style:styles.container},
+
+this.renderNavBar(),
+
+_react2.default.createElement(_reactNative.WebView,{
+automaticallyAdjustContentInsets:true,
+source:{uri:this.state.detailUrl},
+javaScriptEnabled:true,
+domStorageEnabled:true,
+decelerationRate:'normal',
+startInLoadingState:true})));
+
+
+
+},
+
+
+renderNavBar:function renderNavBar(){var _this=this;
+return(
+_react2.default.createElement(_reactNative.View,{style:styles.navOutViewStyle},
+_react2.default.createElement(_reactNative.TouchableOpacity,{onPress:function onPress(){_this.props.navigator.pop();},style:styles.leftViewStyle},
+_react2.default.createElement(_reactNative.Image,{source:{uri:'icon_shop_local'},style:styles.navImageStyle})),
+
+_react2.default.createElement(_reactNative.Text,{style:{color:'white',fontSize:16,fontWeight:'bold'}},'\u5546\u5BB6'),
+_react2.default.createElement(_reactNative.TouchableOpacity,{onPress:function onPress(){alert('点了!');},style:styles.rightViewStyle},
+_react2.default.createElement(_reactNative.Image,{source:{uri:'icon_shop_search'},style:styles.navImageStyle}))));
 
 
 
 }});
 
 
-var styles=_reactNative.StyleSheet.create({});
+
+var styles=_reactNative.StyleSheet.create({
+container:{
+flex:1},
+
+
+welcome:{
+fontSize:20,
+textAlign:'center',
+margin:10},
+
+
+navImageStyle:{
+width:_reactNative.Platform.OS=='ios'?28:24,
+height:_reactNative.Platform.OS=='ios'?28:24},
+
+
+leftViewStyle:{
+
+position:'absolute',
+left:10,
+bottom:_reactNative.Platform.OS=='ios'?15:13},
+
+
+rightViewStyle:{
+
+position:'absolute',
+right:10,
+bottom:_reactNative.Platform.OS=='ios'?15:13},
+
+
+navOutViewStyle:{
+height:_reactNative.Platform.OS=='ios'?64:44,
+backgroundColor:'rgba(255,96,0,1.0)',
+
+
+flexDirection:'row',
+
+alignItems:'center',
+
+justifyContent:'center'}});
 
 
 

@@ -20,6 +20,7 @@ var MiddleView = require('./XMGHomeMiddleView');
 var BottomView = require('./XMGMiddleBottomView');
 var ShopCenter = require('./XMGShopCenter');
 var ShopDetail = require('./XMGShopCenterDetail');
+var GuestYouLike = require('./XMGGeustYouLike');
 var Home = React.createClass({
 
     render(){
@@ -38,6 +39,7 @@ var Home = React.createClass({
                     <ShopCenter 
                         popToHomeView={(url)=>this.pushToShopCenterDetail(url)}
                     />
+                    <GuestYouLike></GuestYouLike>
                 </ScrollView>
             </View>
         );
