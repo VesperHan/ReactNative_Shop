@@ -1,3 +1,22 @@
+
+// Initialize some variables before react-native code would access them
+// and also avoid Node's GLOBAL deprecation warning
+var onmessage=null, self=global.GLOBAL=global;
+// Cache Node's original require as __debug__.require
+var __debug__={require: require};
+process.on("message", function(message){
+    if (onmessage) onmessage(message);
+});
+var postMessage = function(message){
+    process.send(message);
+};
+var importScripts = (function(){
+    var fs=require('fs'), vm=require('vm');
+    return function(scriptUrl){
+        var scriptCode = fs.readFileSync(scriptUrl, "utf8");
+        vm.runInThisContext(scriptCode, {filename: scriptUrl});
+    };
+})();
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -48,3 +67,7 @@ onmessage = function(message) {
     }
   }
 };
+
+// Notify debugger that we're done with loading
+// and started listening for IPC messages
+postMessage({workerLoaded:true});

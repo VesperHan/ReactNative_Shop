@@ -56,7 +56,9 @@ const styles = StyleSheet.create({
         // 多个cell在同一行显示
         flexWrap:'wrap',
 
-        width:width
+        width:width,
+
+        marginLeft:10
     },
     cellStyle:{
         backgroundColor:'white',
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         marginTop:10,
-        marginLeft:(width-70*5)/6
+        marginLeft:(width-75*5)/6
 
     }
 });
